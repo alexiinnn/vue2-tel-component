@@ -46,7 +46,7 @@
                 sendSuccesss:'',
                 sendMessage: '',
                 flagSelected: 'flagempty',
-                sendActive: true,
+                sendActive: false,
                 showWarning: false,
                 buckets: [
                     {country: 'Belarus', code: 375, domain: 'by'},
@@ -67,15 +67,17 @@
             changeCountry(item) {
                 this.flagSelected = 'flag' + item.domain;
                 this.codeSelected = '+' + item.code;
+                this.codeForSend = item.code;
                 this.domainSelected = item.domain.toUpperCase();
                 this.showDropdown = false;
             },
             checkNumber(checkingNumber){
                 this.showWarning = !(/^\d+$/.test(checkingNumber));
+                this.sendActive = !this.showWarning;
             },
             send(event){
-                event.preventDefault();
-                console.log(this);
+                var payload = this.codeForSend + this.numberForCheck;
+                console.log(payload);
                 this.sendSuccesss = !this.sendSuccesss;
                 this.sendMessage = 'Data has been updated';
                 this.sendActive = !this.sendActive;
